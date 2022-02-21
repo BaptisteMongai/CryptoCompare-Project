@@ -7,7 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using System.Net.Http;
-
+using System.Windows.Media;
+using System.Windows.Shapes;
 using Newtonsoft.Json;
 namespace CryptoCompare_Project
 {
@@ -22,7 +23,9 @@ namespace CryptoCompare_Project
         {
             InitializeComponent();
             DataScrapper dataScrapper = new DataScrapper();
-            dataScrapper.scrapDataFunction(cryptoList, CryptoInfo1);
+            //dataScrapper.scrapDataFunction(cryptoList, CryptoInfo1);
+            
+            
         }
     }
 }

@@ -4,9 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoCompare_Project"
+        xmlns:mvvmSwitchViews="clr-namespace:MvvmSwitchViews"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:HomePage}">
+            <local:HomePage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:CryptoRates}">
+            <local:CryptoRates/>
+        </DataTemplate>
+    </Window.Resources>
+ 
+    <Window.DataContext>
+        <mvvmSwitchViews:MainWindowViewModel />
+    </Window.DataContext>
     <Grid>
+        <!--
         <StackPanel>
             <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="20" />
             <Grid Width="550" Height="200">
@@ -23,5 +38,8 @@
                 </DataGrid>
             </Grid>
         </StackPanel>
+        -->
+        <ContentControl Content="{Binding CurrentView}" />
     </Grid>
+        
 </Window>

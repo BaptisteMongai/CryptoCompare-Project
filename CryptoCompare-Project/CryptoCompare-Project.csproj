@@ -60,13 +60,35 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="CryptoRates.xaml.cs">
+          <DependentUpon>CryptoRates.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="CryptoRatesViewModel.cs">
+          <DependentUpon>CryptoRates.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Data.cs">
           <DependentUpon>App.xaml</DependentUpon>
         </Compile>
         <Compile Include="DataScrapper.cs">
           <DependentUpon>App.xaml</DependentUpon>
         </Compile>
+        <Compile Include="EventHandling\EventArgs.cs" />
+        <Compile Include="EventHandling\EventRaiser.cs" />
+        <Compile Include="EventHandling\RelayCommand.cs" />
+        <Compile Include="MainWindowViewModel.cs">
+          <DependentUpon>MainWindow.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="HomePage.xaml.cs">
+          <DependentUpon>HomePage.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="HomePageViewModel.cs">
+          <DependentUpon>HomePage.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Tests Directory\Test Main.cs" />
+        <Compile Include="ViewModelBase.cs">
+          <DependentUpon>App.xaml</DependentUpon>
+        </Compile>
+        <Page Include="CryptoRates.xaml" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
@@ -79,6 +101,7 @@
             <DependentUpon>MainWindow.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Page Include="HomePage.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">
