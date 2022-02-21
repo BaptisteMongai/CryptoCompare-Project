@@ -63,7 +63,7 @@
         <Compile Include="Data.cs">
           <DependentUpon>App.xaml</DependentUpon>
         </Compile>
-        <Compile Include="DataScrappingClass.cs">
+        <Compile Include="DataScrapper.cs">
           <DependentUpon>App.xaml</DependentUpon>
         </Compile>
         <Compile Include="Tests Directory\Test Main.cs" />

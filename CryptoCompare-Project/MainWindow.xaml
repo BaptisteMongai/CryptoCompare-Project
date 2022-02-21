@@ -9,48 +9,16 @@
     <Grid>
         <StackPanel>
             <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="20" />
-            <Grid Height="20" Margin="12,10,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="250"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
-            <!--
-            <Grid Height="35" Margin="0,10,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="150"/>
-                </Grid.ColumnDefinitions>
-                
-                <ComboBox Name="EncryptionComboBox" Height="25" Width="100" HorizontalAlignment="Center" Grid.Column="0" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" DropDownClosed="ComboBox_DropDownClosed">>
-                    <ComboBoxItem Content="Caesar"/>
-                    <ComboBoxItem Content="Binary"/> 
-                    <ComboBoxItem Content="Hexadecimal"/> 
-                    <ComboBoxItem Content="Vigenere"/> 
-                </ComboBox>
-                
-                <TextBox Name="KeyTextBox" Text="Key" Height="25" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="False" VerticalScrollBarVisibility="Auto"/>
-                <CheckBox Click="CheckBox_SelectionChanged" Name="ConvertCheckBox" Content="Decrypt the code" Grid.Column="2" Height="25" HorizontalAlignment="Center" Margin="5,10"/>
-                <Button Click="Button_Click" Content="(De)code text !!!" Grid.Column="3" Height="25" Width="150" HorizontalAlignment="Center"/>
-            </Grid>
-            <Grid Height="40" Margin="12,0,12,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Click="ButtonHelp_Click" Content="Help" Height="20" Width="75" HorizontalAlignment="Center"/>
-            </Grid>
-            -->
-            
-            <Grid>
-                <DataGrid Name="CryptoInfo1" AutoGenerateColumns="False" ItemsSource="{Binding EUR }">
+            <Grid Width="550" Height="200">
+                <DataGrid Name="CryptoInfo1" ScrollViewer.CanContentScroll="True" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="FROMSYMBOL" Binding="{Binding FROMSYMBOL}"/>
-                        <DataGridTextColumn Header="PRICE" Binding="{Binding PRICE}" />
-                        <DataGridTextColumn Header="HIGHDAY" Binding="{Binding HIGHDAY}" />
-                        <DataGridTextColumn Header="LOWDAY" Binding="{Binding LOWDAY}" />
-                        <DataGridTextColumn Header="LASTVOLUME" Binding="{Binding LASTVOLUME}" />
+                        <DataGridTextColumn Header="Symbol" Binding="{Binding FROMSYMBOL}"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding PRICE}" />
+                        <DataGridTextColumn Header="High day" Binding="{Binding HIGHDAY}" />
+                        <DataGridTextColumn Header="Low Day" Binding="{Binding LOWDAY}" />
+                        <DataGridTextColumn Header="Last Volume" Binding="{Binding LASTVOLUME}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
