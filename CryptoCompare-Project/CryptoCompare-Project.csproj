@@ -60,35 +60,41 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
-        <Compile Include="CryptoRates.xaml.cs">
-          <DependentUpon>CryptoRates.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="CryptoRatesViewModel.cs">
-          <DependentUpon>CryptoRates.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Data.cs">
+        <Compile Include="DataHandling\Data.cs">
           <DependentUpon>App.xaml</DependentUpon>
         </Compile>
-        <Compile Include="DataScrapper.cs">
+        <Compile Include="DataHandling\DataScrapper.cs">
           <DependentUpon>App.xaml</DependentUpon>
         </Compile>
         <Compile Include="EventHandling\EventArgs.cs" />
         <Compile Include="EventHandling\EventRaiser.cs" />
         <Compile Include="EventHandling\RelayCommand.cs" />
+        <Compile Include="MainWindow.xaml.cs" />
         <Compile Include="MainWindowViewModel.cs">
           <DependentUpon>MainWindow.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="HomePage.xaml.cs">
-          <DependentUpon>HomePage.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="HomePageViewModel.cs">
-          <DependentUpon>HomePage.xaml</DependentUpon>
         </Compile>
         <Compile Include="Tests Directory\Test Main.cs" />
         <Compile Include="ViewModelBase.cs">
           <DependentUpon>App.xaml</DependentUpon>
         </Compile>
-        <Page Include="CryptoRates.xaml" />
+        <Compile Include="Views\CryptoRates.xaml.cs">
+          <DependentUpon>CryptoRates.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\CryptoRatesViewModel.cs">
+          <DependentUpon>CryptoRates.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\HomePage.xaml.cs">
+          <DependentUpon>HomePage.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\HomePageViewModel.cs">
+          <DependentUpon>HomePage.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\Portfolio.xaml.cs">
+          <DependentUpon>Portfolio.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\PortfolioViewModel.cs">
+          <DependentUpon>Portfolio.xaml</DependentUpon>
+        </Compile>
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
@@ -97,11 +103,9 @@
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Include="MainWindow.xaml.cs">
-            <DependentUpon>MainWindow.xaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
-        <Page Include="HomePage.xaml" />
+        <Page Include="Views\CryptoRates.xaml" />
+        <Page Include="Views\HomePage.xaml" />
+        <Page Include="Views\Portfolio.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">

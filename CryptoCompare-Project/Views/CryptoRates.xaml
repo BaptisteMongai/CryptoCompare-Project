@@ -8,10 +8,27 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel>
-            <Label Content="Bientôt ici un titre" HorizontalAlignment="Center" FontSize="32" />
+            <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="20" />
+            <Label Content="Crypto Rates" HorizontalAlignment="Center" FontSize="15" />
             <Button
-                Content="Goto View 1"
-                Command="{Binding GotoView1Command}"          
+                Content="Homepage"
+                Command="{Binding GotoHomePageCommand}"          
+                HorizontalAlignment="Center"              
+                Margin="10,10,0,0"
+                VerticalAlignment="Center"
+                Width="75">
+            </Button>
+            <Button
+                Content="Crypto Rates"
+                Command="{Binding GotoCryptoRatesCommand}"          
+                HorizontalAlignment="Center"              
+                Margin="10,10,0,0"
+                VerticalAlignment="Center"
+                Width="75">
+            </Button>
+            <Button
+                Content="Portfolio"
+                Command="{Binding GotoPortfolioCommand}"          
                 HorizontalAlignment="Center"              
                 Margin="10,10,0,0"
                 VerticalAlignment="Center"
@@ -40,39 +57,37 @@
                     </Grid>
                 </StackPanel>
                 
-                <ComboBox Grid.Column="0" Grid.Row="0" Name="Crypo1" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
-                    <ComboBoxItem Content="Bitcoin"/>
-                    <ComboBoxItem Content="Ethereum"/> 
-                    <ComboBoxItem Content="Tether"/>
+                <ComboBox Grid.Column="0" Grid.Row="0" Name="Crypto1" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem Content="BTC"/>
+                    <ComboBoxItem Content="ETH"/> 
+                    <ComboBoxItem Content="USDT"/>
                     <ComboBoxItem Content="BNB"/> 
-                    <ComboBoxItem Content="USD Coin"/> 
-                    <ComboBoxItem Content="Cardano"/> 
-                    <ComboBoxItem Content="Solana"/> 
+                    <ComboBoxItem Content="USDC"/> 
+                    <ComboBoxItem Content="ADA"/> 
+                    <ComboBoxItem Content="SOL"/> 
                     <ComboBoxItem Content="XRP"/> 
-                    <ComboBoxItem Content="Terra"/> 
-                    <ComboBoxItem Content="Polkadot"/> 
-                    <ComboBoxItem Content="Dogecoin"/> 
-                    <ComboBoxItem Content="Avalanche"/>
+                    <ComboBoxItem Content="LUNA1"/> 
+                    <ComboBoxItem Content="DOT"/> 
+                    <ComboBoxItem Content="DOGE"/> 
+                    <ComboBoxItem Content="AVAX"/>
                 </ComboBox>
                 
-                <ComboBox Grid.Column="0" Grid.Row="1" Name="Crypo2" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
-                    <ComboBoxItem Content="Euro"/>
-                    <ComboBoxItem Content="Dollar"/>
-                    <ComboBoxItem Content="Bitcoin"/>
-                    <ComboBoxItem Content="Ethereum"/> 
-                    <ComboBoxItem Content="Tether"/> 
+                <ComboBox Grid.Column="0" Grid.Row="1" Name="Crypto2" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem Content="BTC"/>
+                    <ComboBoxItem Content="ETH"/> 
+                    <ComboBoxItem Content="USDT"/>
                     <ComboBoxItem Content="BNB"/> 
-                    <ComboBoxItem Content="USD Coin"/> 
-                    <ComboBoxItem Content="Cardano"/> 
-                    <ComboBoxItem Content="Solana"/> 
+                    <ComboBoxItem Content="USDC"/> 
+                    <ComboBoxItem Content="ADA"/> 
+                    <ComboBoxItem Content="SOL"/> 
                     <ComboBoxItem Content="XRP"/> 
-                    <ComboBoxItem Content="Terra"/> 
-                    <ComboBoxItem Content="Polkadot"/> 
-                    <ComboBoxItem Content="Dogecoin"/> 
-                    <ComboBoxItem Content="Avalanche"/>
+                    <ComboBoxItem Content="LUNA1"/> 
+                    <ComboBoxItem Content="DOT"/> 
+                    <ComboBoxItem Content="DOGE"/> 
+                    <ComboBoxItem Content="AVAX"/>
                 </ComboBox>
                 
-                <ComboBox Grid.Column="0" Grid.Row="2" Name="Duration" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
+                <ComboBox Grid.Column="0" Grid.Row="2" Name="Period" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
                     <ComboBoxItem Content="Daily"/>
                     <ComboBoxItem Content="Weekly"/>
                     <ComboBoxItem Content="Monthly"/>

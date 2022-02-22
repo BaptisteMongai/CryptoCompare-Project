@@ -17,12 +17,12 @@ namespace CryptoCompare_Project
     /// </summary>
     public partial class MainWindow
     {
-        List<EUR> cryptoList = new List<EUR>();
+        //List<EUR> cryptoList = new List<EUR>();
         
         public MainWindow()
         {
             InitializeComponent();
-            DataScrapper dataScrapper = new DataScrapper();
+            //DataScrapper dataScrapper = new DataScrapper();
             //dataScrapper.scrapDataFunction(cryptoList, CryptoInfo1);
             
             

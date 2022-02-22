@@ -1,44 +1,60 @@
 ﻿using System.Windows.Input;
 using CryptoCompare_Project;
+using CryptoCompare_Project.Views;
 
 namespace MvvmSwitchViews
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private ICommand _gotoView1Command;
-        private ICommand _gotoView2Command;
+        private ICommand _gotoHomePageCommand;
+        private ICommand _gotoCryptoRatesCommand;
+        private ICommand _GotoPortfolioCommand;
         private object _currentView;
-        private object _view1;
-        private object _view2;
+        private object _HomePageView;
+        private object _CryptoRatesView;
+        private object _PortfolioView;
  
         public MainWindowViewModel()
         {
-            _view1 = new HomePage();
-            _view2 = new CryptoRates();
+            _HomePageView = new HomePage();
+            _CryptoRatesView = new CryptoRates();
+            _PortfolioView = new Portfolio();
  
-            CurrentView = _view1;
+            CurrentView = _HomePageView;
         }
  
-        public object GotoView1Command
+        public object GotoHomePageCommand
         {
             get
             {
-                return _gotoView1Command ?? (_gotoView1Command = new RelayCommand(
+                return _gotoHomePageCommand ?? (_gotoHomePageCommand = new RelayCommand(
                     x =>
                     {
-                        GotoView1();
+                        GotoHomePageView();
                     }));
             }
         }
  
-        public ICommand GotoView2Command
+        public ICommand GotoCryptoRatesCommand
         {
             get
             {
-                return _gotoView2Command ?? (_gotoView2Command = new RelayCommand(
+                return _gotoCryptoRatesCommand ?? (_gotoCryptoRatesCommand = new RelayCommand(
                     x =>
                     {
-                        GotoView2();
+                        GotoCryptoRatesView();
+                    }));
+            }
+        }
+        
+        public ICommand GotoPortfolioCommand
+        {
+            get
+            {
+                return _GotoPortfolioCommand ?? (_GotoPortfolioCommand = new RelayCommand(
+                    x =>
+                    {
+                        GotoPortfolioView();
                     }));
             }
         }
@@ -53,14 +69,19 @@ namespace MvvmSwitchViews
             }
         }
  
-        private void GotoView1()
+        private void GotoHomePageView()
         {
-            CurrentView = _view1;
+            CurrentView = _HomePageView;
         }
  
-        private void GotoView2()
+        private void GotoCryptoRatesView()
         {
-            CurrentView =  _view2;
+            CurrentView =  _CryptoRatesView;
+        }
+        
+        private void GotoPortfolioView()
+        {
+            CurrentView =  _PortfolioView;
         }
     }
 }

@@ -9,15 +9,32 @@
     <Grid>
         <StackPanel>
             <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="20" />
+            <Label Content="Homepage" HorizontalAlignment="Center" FontSize="15" />
             <Button
-                Content="Crypto Rates"
-                Command="{Binding GotoView2Command}"          
+                Content="Homepage"
+                Command="{Binding GotoHomePageCommand}"          
                 HorizontalAlignment="Center"              
                 Margin="10,10,0,0"
                 VerticalAlignment="Center"
                 Width="75">
             </Button>
-            <Grid Width="550" Height="200">
+            <Button
+                Content="Crypto Rates"
+                Command="{Binding GotoCryptoRatesCommand}"          
+                HorizontalAlignment="Center"              
+                Margin="10,10,0,0"
+                VerticalAlignment="Center"
+                Width="75">
+            </Button>
+            <Button
+                Content="Portfolio"
+                Command="{Binding GotoPortfolioCommand}"          
+                HorizontalAlignment="Center"              
+                Margin="10,10,0,0"
+                VerticalAlignment="Center"
+                Width="75">
+            </Button>
+            <Grid Width="550" Height="Auto">
                 <DataGrid Name="CryptoInfo1" ScrollViewer.CanContentScroll="True" 
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           AutoGenerateColumns="False" >
