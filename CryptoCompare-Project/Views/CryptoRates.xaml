@@ -42,14 +42,17 @@
                     <RowDefinition Height="25*"/>
                     <RowDefinition Height="25*"/>
                     <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
                 </Grid.RowDefinitions>
                 
                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="Red" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Border Grid.Column="0" Grid.Row="1" BorderBrush="Blue" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Border Grid.Column="0" Grid.Row="2" BorderBrush="Fuchsia" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Border Grid.Column="1" Grid.Row = "0" Grid.RowSpan="3" BorderBrush="Green" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Border Grid.Column="0" Grid.Row="3" BorderBrush="Indigo" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                <Border Grid.Column="1" Grid.Row = "0" Grid.RowSpan="4" BorderBrush="Green" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 
-                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="20,20,20,20" >
+                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Margin="20,20,20,20" >
                     <Grid Background="LightGreen">
                         <WpfPlot Name="WpfPlot1" />
                         <Button x:Name="Draw_Rate" Content="Draw Rate" HorizontalAlignment="Left" Margin="21,320,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.498,-0.932" Click="Draw_Rate_Click"/>
@@ -93,6 +96,13 @@
                     <ComboBoxItem Content="Weekly"/>
                     <ComboBoxItem Content="Monthly"/>
                     <ComboBoxItem Content="Yearly"/>
+                </ComboBox>
+                
+                <ComboBox Grid.Column="0" Grid.Row="3" Name="Currency" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem Content="USD"/>
+                    <ComboBoxItem Content="EUR"/>
+                    <ComboBoxItem Content="JPY"/>
+                    <ComboBoxItem Content="GBP"/>
                 </ComboBox>
                 
             </Grid>
