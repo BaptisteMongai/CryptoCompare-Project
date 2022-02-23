@@ -24,8 +24,6 @@ namespace CryptoCompare_Project
             InitializeComponent();
             //DataScrapper dataScrapper = new DataScrapper();
             //dataScrapper.scrapDataFunction(cryptoList, CryptoInfo1);
-            
-            
         }
     }
 }

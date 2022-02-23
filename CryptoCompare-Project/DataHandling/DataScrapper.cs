@@ -44,17 +44,16 @@ namespace CryptoCompare_Project
 
     public class CryptoRatesDataScrapper
     {
-        private List<double> crypto1ClosePrices { get; set; }
-        private List<double> crypto2ClosePrices { get; set; }
+        public List<double> crypto1ClosePrices { get; set; }
+        public List<double> crypto2ClosePrices { get; set; }
 
         public CryptoRatesDataScrapper()
         {
             crypto1ClosePrices = new List<double>();
             crypto2ClosePrices = new List<double>();
-
         }
         
-        public void scrapDataFunction(string cryptoLink)
+        public void scrapDataCrypto1Function(string cryptoLink)
         {
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
             
@@ -73,7 +72,29 @@ namespace CryptoCompare_Project
                         var closePrice = result.Data.Data[i].close;
                         crypto1ClosePrices.Add(closePrice);
                     }
-                    //cryptoInfo1.ItemsSource = from element in BestCryptoList select new {element.FROMSYMBOL, element.PRICE, element.HIGHDAY, element.LOWDAY, element.LASTVOLUME};
+                }
+            }
+        }
+        
+        public void scrapDataCrypto2Function(string cryptoLink)
+        {
+            string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
+            
+            using (var web = new HttpClient())
+            {
+                web.DefaultRequestHeaders.Add("Apikey", key);
+
+                var response = web.GetAsync(cryptoLink).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<CryptoHistDataRoot>(jsonString);
+                    for (int i = 0; i < result.Data.Data.Count; i++)
+                    {
+                        var closePrice = result.Data.Data[i].close;
+                        crypto2ClosePrices.Add(closePrice);
+                    }
                 }
             }
         }

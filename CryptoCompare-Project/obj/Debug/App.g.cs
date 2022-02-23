@@ -10,6 +10,7 @@
 //------------------------------------------------------------------------------
 
 using CryptoCompare_Project;
+using ScottPlot;
 using System;
 using System.Diagnostics;
 using System.Windows;
