@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoCompare_Project"
         xmlns:mvvmSwitchViews="clr-namespace:MvvmSwitchViews"
+        xmlns:views="clr-namespace:CryptoCompare_Project.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     
@@ -12,8 +13,8 @@
         <DataTemplate DataType="{x:Type local:HomePage}">
             <local:HomePage/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type local:CryptoRates}">
-            <local:CryptoRates/>
+        <DataTemplate DataType="{x:Type views:CryptoRates}">
+            <views:CryptoRates/>
         </DataTemplate>
     </Window.Resources>
  
