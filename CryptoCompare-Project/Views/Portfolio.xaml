@@ -87,10 +87,13 @@
            </TextBox>
                
            <ComboBox Grid.Column="0" Grid.Row="4" Margin="0,20,0,0" Name="Period" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
-               <ComboBoxItem Content="Daily"/>
-               <ComboBoxItem Content="Weekly"/>
-               <ComboBoxItem Content="Monthly"/>
-               <ComboBoxItem Content="Yearly"/>
+               <ComboBoxItem Content="Today"/>
+               <ComboBoxItem Content="1 hour"/>
+               <ComboBoxItem Content="24 hours"/>
+               <ComboBoxItem Content="7 days"/>
+               <ComboBoxItem Content="30 days"/>
+               <ComboBoxItem Content="90 days"/>
+               <ComboBoxItem Content="1 year"/>
            </ComboBox>
                
            <TextBox Grid.Column="1" Grid.Row="0" Name="ColumnName" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -106,6 +109,8 @@
            <Button Grid.Column="1" Grid.Row="4" Margin="0,20,0,0" Name="Calcul" Content="Calcul" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="calcul_Click" />
            
            </Grid>
+            
+
             
         </StackPanel>
 

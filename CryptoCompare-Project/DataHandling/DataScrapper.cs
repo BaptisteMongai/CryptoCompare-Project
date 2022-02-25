@@ -163,8 +163,8 @@ namespace CryptoCompare_Project
                     List<double> listOpen = new List<double>();
                     for (int i = 0; i < result.Data.Data.Count; i++)
                     {
-                        var closePrice = result.Data.Data[i].open;
-                        listOpen.Add(closePrice);
+                        var openPrice = result.Data.Data[i].open;
+                        listOpen.Add(openPrice);
                     }
 
                     crypto1OpenPrice = listOpen.Last();
@@ -190,8 +190,8 @@ namespace CryptoCompare_Project
                     List<double> listOpen = new List<double>();
                     for (int i = 0; i < result.Data.Data.Count; i++)
                     {
-                        var closePrice = result.Data.Data[i].open;
-                        listOpen.Add(closePrice);
+                        var openPrice = result.Data.Data[i].open;
+                        listOpen.Add(openPrice);
                     }
 
                     crypto2OpenPrice = listOpen.Last();
