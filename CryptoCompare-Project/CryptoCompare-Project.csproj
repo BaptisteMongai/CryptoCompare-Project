@@ -110,9 +110,6 @@
           <DependentUpon>MainWindow.xaml</DependentUpon>
         </Compile>
         <Compile Include="Tests Directory\Test Main.cs" />
-        <Compile Include="ViewModelBase.cs">
-          <DependentUpon>App.xaml</DependentUpon>
-        </Compile>
         <Compile Include="Views\CryptoRates.xaml.cs">
           <DependentUpon>CryptoRates.xaml</DependentUpon>
         </Compile>
@@ -130,6 +127,9 @@
         </Compile>
         <Compile Include="Views\PortfolioViewModel.cs">
           <DependentUpon>Portfolio.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\ViewModelBase.cs">
+          <DependentUpon>App.xaml</DependentUpon>
         </Compile>
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
