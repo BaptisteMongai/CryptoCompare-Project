@@ -60,7 +60,7 @@
             <Border Grid.Column="0" BorderBrush="Red" Margin="9,385.334,213.156,0" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="58"/>
             <Border BorderBrush="Blue" Margin="168.677,385.334,53.479,0" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="58"/>
             <Border BorderBrush="Fuchsia" Margin="330.354,385.334,14.969,0" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="58" Grid.ColumnSpan="2"/>
-            <ComboBox Grid.Column="0" Grid.Row="0" x:Name="Crypto1" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="13.677,389.917,218.323,5.083" SelectionChanged="Crypto1_SelectionChanged" DropDownClosed="Crypto1_DropDownClosed">
+            <ComboBox Grid.Column="0" Grid.Row="0" x:Name="Crypto1" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="13.677,389.917,218.323,5.083" DropDownClosed="Crypto1_DropDownClosed">
                 <ComboBoxItem Content="BTC"/>
                 <ComboBoxItem Content="ETH"/>
                 <ComboBoxItem Content="USDT"/>
@@ -74,7 +74,7 @@
                 <ComboBoxItem Content="DOGE"/>
                 <ComboBoxItem Content="AVAX"/>
             </ComboBox>
-            <ComboBox Grid.Column="0" x:Name="Crypto2" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="173.844,389.917,58.156,5.083" SelectionChanged="Crypto2_SelectionChanged" DropDownClosed="Crypto2_DropDownClosed">
+            <ComboBox Grid.Column="0" x:Name="Crypto2" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="173.844,389.917,58.156,5.083" DropDownClosed="Crypto2_DropDownClosed">
                 <ComboBoxItem Content="ETH"/>
                 <ComboBoxItem Content="BTC"/>
                 <ComboBoxItem Content="USDT"/>
@@ -88,7 +88,7 @@
                 <ComboBoxItem Content="DOGE"/>
                 <ComboBoxItem Content="AVAX"/>
             </ComboBox>
-            <ComboBox Grid.Column="0" x:Name="Period" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="336.177,389.917,18.823,5.083" Grid.ColumnSpan="2" SelectionChanged="Period_SelectionChanged" DropDownClosed="Period_DropDownClosed">
+            <ComboBox Grid.Column="0" x:Name="Period" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="336.177,389.917,18.823,5.083" Grid.ColumnSpan="2" DropDownClosed="Period_DropDownClosed">
                 <ComboBoxItem Content="Daily"/>
                 <ComboBoxItem Content="Weekly"/>
                 <ComboBoxItem Content="Monthly"/>
