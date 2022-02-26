@@ -4,100 +4,97 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="600" d:DesignWidth="600">
-    <Grid>
-        <StackPanel>
-            <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="20" />
-            <Label Content="Crypto Rates" HorizontalAlignment="Center" FontSize="15" />
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
+        <StackPanel Height="500" Canvas.Top="102.444" Width="170" Canvas.Left="0.667" Background="#FF353F4E">
             <Button
-                Content="Homepage"
-                Command="{Binding GotoHomePageCommand}"          
-                HorizontalAlignment="Center"              
-                Margin="10,10,0,0"
-                VerticalAlignment="Center"
-                Width="75">
-            </Button>
+                    Content="Homepage"
+                    Foreground="Beige"
+                    Command="{Binding GotoHomePageCommand}"          
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655"/>
+
             <Button
-                Content="Crypto Rates"
-                Command="{Binding GotoCryptoRatesCommand}"          
-                HorizontalAlignment="Center"              
-                Margin="10,10,0,0"
-                VerticalAlignment="Center"
-                Width="75">
-            </Button>
+                    Content="Crypto Rates"
+                    Foreground="Beige"
+                    Command="{Binding GotoCryptoRatesCommand}"          
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655" Margin="0"/>
             <Button
-                Content="Portfolio"
-                Command="{Binding GotoPortfolioCommand}"          
-                HorizontalAlignment="Center"              
-                Margin="10,10,0,0"
-                VerticalAlignment="Center"
-                Width="75">
-            </Button>
-            <Grid Width="620" Height="390">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="7*"/>  
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25*"/>
-                    <RowDefinition Height="25*"/>
-                    <RowDefinition Height="25*"/>
-                </Grid.RowDefinitions>
-                
-                <Border Grid.Column="0" Grid.Row="0" BorderBrush="Red" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Border Grid.Column="0" Grid.Row="1" BorderBrush="Blue" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Border Grid.Column="0" Grid.Row="2" BorderBrush="Fuchsia" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Border Grid.Column="1" Grid.Row = "0" Grid.RowSpan="3" BorderBrush="Green" Margin="1" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                
-                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="20,20,20,20" >
-                    <Grid Background="LightGreen">
-                        <WpfPlot Name="WpfPlot1" />
-                        <!--Button x:Name="Draw_Rate" Content="Draw Rate" HorizontalAlignment="Left" Margin="21,320,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.498,-0.932" Click="Draw_Rate_Click"/-->
-                    </Grid>
-                    
-                    
-                </StackPanel>
-                
-                <ComboBox Grid.Column="0" Grid.Row="0" Name="Crypto1" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
-                    <ComboBoxItem Content="BTC"/>
-                    <ComboBoxItem Content="ETH"/> 
-                    <ComboBoxItem Content="USDT"/>
-                    <ComboBoxItem Content="BNB"/> 
-                    <ComboBoxItem Content="USDC"/> 
-                    <ComboBoxItem Content="ADA"/> 
-                    <ComboBoxItem Content="SOL"/> 
-                    <ComboBoxItem Content="XRP"/> 
-                    <ComboBoxItem Content="LUNA1"/> 
-                    <ComboBoxItem Content="DOT"/> 
-                    <ComboBoxItem Content="DOGE"/> 
-                    <ComboBoxItem Content="AVAX"/>
-                </ComboBox>
-                
-                <ComboBox Grid.Column="0" Grid.Row="1" Name="Crypto2" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
-                    <ComboBoxItem Content="ETH"/> 
-                    <ComboBoxItem Content="BTC"/>
-                    <ComboBoxItem Content="USDT"/>
-                    <ComboBoxItem Content="BNB"/> 
-                    <ComboBoxItem Content="USDC"/> 
-                    <ComboBoxItem Content="ADA"/> 
-                    <ComboBoxItem Content="SOL"/> 
-                    <ComboBoxItem Content="XRP"/> 
-                    <ComboBoxItem Content="LUNA1"/> 
-                    <ComboBoxItem Content="DOT"/> 
-                    <ComboBoxItem Content="DOGE"/> 
-                    <ComboBoxItem Content="AVAX"/>
-                </ComboBox>
-                
-                <ComboBox Grid.Column="0" Grid.Row="2" Name="Period" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0">
-                    <ComboBoxItem Content="Daily"/>
-                    <ComboBoxItem Content="Weekly"/>
-                    <ComboBoxItem Content="Monthly"/>
-                    <ComboBoxItem Content="Yearly"/>
-                </ComboBox>
-                
-            </Grid>
+                    Content="Portfolio"
+                    Foreground="Beige"
+                    Command="{Binding GotoPortfolioCommand}"          
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655"/>
         </StackPanel>
-    </Grid>
+        <StackPanel Height="100" Canvas.Top="2" Width="900" Background="#FF353F4E" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="24" FontFamily="Impact" Margin="394.833,0,394.197,0" VerticalAlignment="Center" Width="110.97" Foreground="Beige"/>
+            <Label Content="Portfolio" HorizontalAlignment="Center" FontSize="16" Margin="409.833,0,410.53,0" Width="79.637" FontWeight="Bold" Foreground="Beige"/>
+        </StackPanel>
+        <StackPanel Height="500" Canvas.Top="99" Width="170" Canvas.Left="730" Background="#FF353F4E"/>
+        <Grid Width="540" Height="339" Canvas.Left="829.167" Canvas.Top="107">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="25*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="30,23.96,10,16.04" >
+                <Grid Background="LightGreen"/>
+            </StackPanel>
+
+        </Grid>
+        <Grid Height="445" Canvas.Left="201.667" Canvas.Top="134" Width="505">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="382*"/>
+                <ColumnDefinition Width="123*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row = "0" BorderBrush="Green" Margin="9,-3,14.969,64.666" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
+            <Border Grid.Column="0" BorderBrush="Red" Margin="9,385.334,213.156,0" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="58"/>
+            <Border BorderBrush="Blue" Margin="168.677,385.334,53.479,0" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="58"/>
+            <Border BorderBrush="Fuchsia" Margin="330.354,385.334,14.969,0" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="58" Grid.ColumnSpan="2"/>
+            <ComboBox Grid.Column="0" Grid.Row="0" x:Name="Crypto1" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="13.677,389.917,218.323,5.083" SelectionChanged="Crypto1_SelectionChanged" DropDownClosed="Crypto1_DropDownClosed">
+                <ComboBoxItem Content="BTC"/>
+                <ComboBoxItem Content="ETH"/>
+                <ComboBoxItem Content="USDT"/>
+                <ComboBoxItem Content="BNB"/>
+                <ComboBoxItem Content="USDC"/>
+                <ComboBoxItem Content="ADA"/>
+                <ComboBoxItem Content="SOL"/>
+                <ComboBoxItem Content="XRP"/>
+                <ComboBoxItem Content="LUNA1"/>
+                <ComboBoxItem Content="DOT"/>
+                <ComboBoxItem Content="DOGE"/>
+                <ComboBoxItem Content="AVAX"/>
+            </ComboBox>
+            <ComboBox Grid.Column="0" x:Name="Crypto2" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="173.844,389.917,58.156,5.083" SelectionChanged="Crypto2_SelectionChanged" DropDownClosed="Crypto2_DropDownClosed">
+                <ComboBoxItem Content="ETH"/>
+                <ComboBoxItem Content="BTC"/>
+                <ComboBoxItem Content="USDT"/>
+                <ComboBoxItem Content="BNB"/>
+                <ComboBoxItem Content="USDC"/>
+                <ComboBoxItem Content="ADA"/>
+                <ComboBoxItem Content="SOL"/>
+                <ComboBoxItem Content="XRP"/>
+                <ComboBoxItem Content="LUNA1"/>
+                <ComboBoxItem Content="DOT"/>
+                <ComboBoxItem Content="DOGE"/>
+                <ComboBoxItem Content="AVAX"/>
+            </ComboBox>
+            <ComboBox Grid.Column="0" x:Name="Period" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="336.177,389.917,18.823,5.083" Grid.ColumnSpan="2" SelectionChanged="Period_SelectionChanged" DropDownClosed="Period_DropDownClosed">
+                <ComboBoxItem Content="Daily"/>
+                <ComboBoxItem Content="Weekly"/>
+                <ComboBoxItem Content="Monthly"/>
+                <ComboBoxItem Content="Yearly"/>
+            </ComboBox>
+            <WpfPlot x:Name="WpfPlot1" Margin="12.177,0,18.823,69.225" Grid.ColumnSpan="2" Grid.Column="0" Width="474" Background="#FF2C3B5E" />
+        </Grid>
+    </Canvas>
 </UserControl>
-
-

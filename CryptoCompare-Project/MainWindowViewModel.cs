@@ -8,7 +8,7 @@ namespace MvvmSwitchViews
     {
         private ICommand _gotoHomePageCommand;
         private ICommand _gotoCryptoRatesCommand;
-        private ICommand _GotoPortfolioCommand;
+        private ICommand _gotoPortfolioCommand;
         private object _currentView;
         private object _HomePageView;
         private object _CryptoRatesView;
@@ -51,7 +51,7 @@ namespace MvvmSwitchViews
         {
             get
             {
-                return _GotoPortfolioCommand ?? (_GotoPortfolioCommand = new RelayCommand(
+                return _gotoPortfolioCommand ?? (_gotoPortfolioCommand = new RelayCommand(
                     x =>
                     {
                         GotoPortfolioView();

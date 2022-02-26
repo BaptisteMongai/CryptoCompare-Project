@@ -7,11 +7,11 @@
         xmlns:mvvmSwitchViews="clr-namespace:MvvmSwitchViews"
         xmlns:views="clr-namespace:CryptoCompare_Project.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="630" Width="900">
     
     <Window.Resources>
-        <DataTemplate DataType="{x:Type local:HomePage}">
-            <local:HomePage/>
+        <DataTemplate DataType="{x:Type views:HomePage}">
+            <views:HomePage/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type views:CryptoRates}">
             <views:CryptoRates/>
@@ -22,25 +22,6 @@
         <mvvmSwitchViews:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
-        <!--
-        <StackPanel>
-            <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="20" />
-            <Grid Width="550" Height="200">
-                <DataGrid Name="CryptoInfo1" ScrollViewer.CanContentScroll="True" 
-                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          AutoGenerateColumns="False" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Symbol" Binding="{Binding FROMSYMBOL}"/>
-                        <DataGridTextColumn Header="Price" Binding="{Binding PRICE}" />
-                        <DataGridTextColumn Header="High day" Binding="{Binding HIGHDAY}" />
-                        <DataGridTextColumn Header="Low Day" Binding="{Binding LOWDAY}" />
-                        <DataGridTextColumn Header="Last Volume" Binding="{Binding LASTVOLUME}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-        </StackPanel>
-        -->
         <ContentControl Content="{Binding CurrentView}" />
     </Grid>
-        
 </Window>

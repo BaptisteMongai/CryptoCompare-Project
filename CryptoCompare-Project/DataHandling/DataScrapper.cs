@@ -115,10 +115,6 @@ namespace CryptoCompare_Project
 
             // Add the timestamp (number of seconds since the Epoch) to be converted
             dateTime = dateTime.AddSeconds(timestamp);
-		
-            //var dateTime2 = new DateTime(2015, 05, 24, 10, 2, 0, DateTimeKind.Local);
-            //var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            //var unixDateTime = (dateTime2.ToUniversalTime() - epoch).TotalSeconds;
 
             return dateTime;
         }

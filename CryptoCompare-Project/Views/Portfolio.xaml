@@ -5,35 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CryptoCompare_Project.Views"
              mc:Ignorable="d"
-             d:DesignHeight="600" d:DesignWidth="600">
-    <Grid>
-        <StackPanel>
-            <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="20" />
-            <Label Content="Portfolio" HorizontalAlignment="Center" FontSize="15" />
+             d:DesignHeight="600" d:DesignWidth="900" Background="#FF273655">
+    <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
+        <StackPanel Height="500" Canvas.Top="102.444" Width="170" Canvas.Left="0.667" Background="#FF353F4E">
             <Button
-                Content="Homepage"
-                Command="{Binding GotoHomePageCommand}"          
-                HorizontalAlignment="Center"              
-                Margin="10,10,0,0"
-                VerticalAlignment="Center"
-                Width="75">
-            </Button>
+                    Content="Homepage"
+                    Command="{Binding GotoHomePageCommand}"          
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FFFB0808"/>
             <Button
-                Content="Crypto Rates"
-                Command="{Binding GotoCryptoRatesCommand}"          
-                HorizontalAlignment="Center"              
-                Margin="10,10,0,0"
-                VerticalAlignment="Center"
-                Width="75">
-            </Button>
+                    Content="Crypto Rates"
+                    Command="{Binding GotoCryptoRatesCommand}"          
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FFFB0808" Margin="0"/>
             <Button
-                Content="Portfolio"
-                Command="{Binding GotoPortfolioCommand}"          
-                HorizontalAlignment="Center"              
-                Margin="10,10,0,0"
-                VerticalAlignment="Center"
-                Width="75">
-            </Button>
+                    Content="Portfolio"
+                    Command="{Binding GotoPortfolioCommand}"          
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FFFB0808"/>
         </StackPanel>
-    </Grid>
+        <StackPanel Height="100" Canvas.Top="2" Width="900" Background="#FF353F4E" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="24" FontFamily="Impact" Margin="394.833,0,394.197,0" VerticalAlignment="Center" Width="110.97" />
+            <Label Content="Portfolio" HorizontalAlignment="Center" FontSize="16" Margin="409.833,0,410.53,0" Width="79.637" FontWeight="Bold" />
+        </StackPanel>
+        <DataGrid Name="CryptoInfo1" ScrollViewer.CanContentScroll="True" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          AutoGenerateColumns="False" Canvas.Left="208.665" Canvas.Top="109.464" Background="#FF889DC8" Height="45.96" Width="484.256" Foreground="#FF3469D5" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Symbol" Binding="{Binding FROMSYMBOL}" Foreground="#FF3469D5"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding PRICE}" Foreground="#FF3469D5" />
+                <DataGridTextColumn Header="High day" Binding="{Binding HIGHDAY}" Foreground="#FF3469D5" />
+                <DataGridTextColumn Header="Low Day" Binding="{Binding LOWDAY}" Foreground="#FF3469D5" />
+                <DataGridTextColumn Header="Last Volume" Binding="{Binding LASTVOLUME}" Foreground="#FF3469D5" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Height="500" Canvas.Top="99" Width="170" Canvas.Left="730" Background="#FF353F4E"/>
+    </Canvas>
 </UserControl>
