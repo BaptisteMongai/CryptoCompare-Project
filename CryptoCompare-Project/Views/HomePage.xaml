@@ -15,7 +15,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655"/>
-                    
+
             <Button
                     Content="Crypto Rates"
                     Foreground="Beige"
@@ -24,7 +24,7 @@
                     VerticalAlignment="Center"
                     Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655" Margin="0"/>
             <Button
-                    Content="Portfolio"
+                    Content="Variations"
                     Foreground="Beige"
                     Command="{Binding GotoPortfolioCommand}"          
                     HorizontalAlignment="Center"
@@ -33,7 +33,7 @@
         </StackPanel>
         <StackPanel Height="100" Canvas.Top="2" Width="900" Background="#FF353F4E" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="24" FontFamily="Impact" Margin="394.833,0,394.197,0" VerticalAlignment="Center" Width="110.97" Foreground="Beige"/>
-            <Label Content="Portfolio" HorizontalAlignment="Center" FontSize="16" Margin="409.833,0,410.53,0" Width="79.637" FontWeight="Bold" Foreground="Beige"/>
+            <Label Content="Homepage" HorizontalAlignment="Center" FontSize="16" Margin="401.833,0,402.197,0" Width="95.97" FontWeight="Bold" Foreground="Beige"/>
         </StackPanel>
         <DataGrid Name="CryptoInfo1" ScrollViewer.CanContentScroll="True" 
                           ScrollViewer.VerticalScrollBarVisibility="Auto"

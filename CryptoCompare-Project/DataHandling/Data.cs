@@ -158,3 +158,10 @@ public class CryptoHistDataRoot
     public Datum2 Data { get; set; }
 }
 
+// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+public class CurrentPriceUSD
+{
+    public double USD { get; set; }
+}
+
+

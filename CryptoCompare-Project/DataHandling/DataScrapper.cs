@@ -119,4 +119,105 @@ namespace CryptoCompare_Project
             return dateTime;
         }
     }
+    
+    //nouvelle class
+    public class CryptoDifferencePriceDataScrapper
+    {
+        public double crypto1CurrentPrice { get; set; }
+        public double crypto2CurrentPrice { get; set; }
+        public double crypto1OpenPrice { get; set; }
+        public double crypto2OpenPrice { get; set; }
+
+        public async Task scrappingCrypto1CurrentPrice(string cryptoLink)
+        {
+            string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
+
+            using (var web = new HttpClient())
+            {
+                web.DefaultRequestHeaders.Add("Apikey", key);
+
+                var response = web.GetAsync(cryptoLink).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<CurrentPriceUSD>(jsonString);
+                    crypto1CurrentPrice = result.USD;
+                }
+            }
+        }
+
+        public async Task scrappingCrypto2CurrentPrice(string cryptoLink)
+        {
+            string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
+
+            using (var web = new HttpClient())
+            {
+                web.DefaultRequestHeaders.Add("Apikey", key);
+
+                var response = web.GetAsync(cryptoLink).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<CurrentPriceUSD>(jsonString);
+                    crypto2CurrentPrice = result.USD;
+                }
+            }
+        }
+
+        public async Task scrappingCrypto1InitialPrice(string cryptoLink)
+        {
+            string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
+
+            using (var web = new HttpClient())
+            {
+                web.DefaultRequestHeaders.Add("Apikey", key);
+
+                var response = web.GetAsync(cryptoLink).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<CryptoHistDataRoot>(jsonString);
+
+                    List<double> listOpen = new List<double>();
+                    for (int i = 0; i < result.Data.Data.Count; i++)
+                    {
+                        var openPrice = result.Data.Data[i].open;
+                        listOpen.Add(openPrice);
+                    }
+
+                    crypto1OpenPrice = listOpen.Last();
+                }
+            }
+        }
+
+        public async Task scrappingCrypto2InitialPrice(string cryptoLink)
+        {
+            string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
+
+            using (var web = new HttpClient())
+            {
+                web.DefaultRequestHeaders.Add("Apikey", key);
+
+                var response = web.GetAsync(cryptoLink).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<CryptoHistDataRoot>(jsonString);
+
+                    List<double> listOpen = new List<double>();
+                    for (int i = 0; i < result.Data.Data.Count; i++)
+                    {
+                        var openPrice = result.Data.Data[i].open;
+                        listOpen.Add(openPrice);
+                    }
+
+                    crypto2OpenPrice = listOpen.Last();
+                }
+            }
+        }
+    }
 }

@@ -122,11 +122,11 @@
         <Compile Include="Views\HomePageViewModel.cs">
           <DependentUpon>HomePage.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Views\Portfolio.xaml.cs">
-          <DependentUpon>Portfolio.xaml</DependentUpon>
+        <Compile Include="Views\Variations.xaml.cs">
+          <DependentUpon>Variations.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Views\PortfolioViewModel.cs">
-          <DependentUpon>Portfolio.xaml</DependentUpon>
+        <Compile Include="Views\VariationsViewModel.cs">
+          <DependentUpon>Variations.xaml</DependentUpon>
         </Compile>
         <Compile Include="Views\ViewModelBase.cs">
           <DependentUpon>App.xaml</DependentUpon>
@@ -141,7 +141,7 @@
         </Compile>
         <Page Include="Views\CryptoRates.xaml" />
         <Page Include="Views\HomePage.xaml" />
-        <Page Include="Views\Portfolio.xaml" />
+        <Page Include="Views\Variations.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">

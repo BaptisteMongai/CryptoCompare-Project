@@ -8,17 +8,17 @@ namespace MvvmSwitchViews
     {
         private ICommand _gotoHomePageCommand;
         private ICommand _gotoCryptoRatesCommand;
-        private ICommand _gotoPortfolioCommand;
+        private ICommand _gotoVariationsCommand;
         private object _currentView;
         private object _HomePageView;
         private object _CryptoRatesView;
-        private object _PortfolioView;
+        private object _VariationsView;
  
         public MainWindowViewModel()
         {
             _HomePageView = new HomePage();
             _CryptoRatesView = new CryptoRates();
-            _PortfolioView = new Portfolio();
+            _VariationsView = new Variations();
  
             CurrentView = _HomePageView;
         }
@@ -51,7 +51,7 @@ namespace MvvmSwitchViews
         {
             get
             {
-                return _gotoPortfolioCommand ?? (_gotoPortfolioCommand = new RelayCommand(
+                return _gotoVariationsCommand ?? (_gotoVariationsCommand = new RelayCommand(
                     x =>
                     {
                         GotoPortfolioView();
@@ -81,7 +81,7 @@ namespace MvvmSwitchViews
         
         private void GotoPortfolioView()
         {
-            CurrentView =  _PortfolioView;
+            CurrentView =  _VariationsView;
         }
     }
 }
