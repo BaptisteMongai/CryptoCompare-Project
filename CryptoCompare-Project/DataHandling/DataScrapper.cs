@@ -11,16 +11,16 @@ namespace CryptoCompare_Project
 {
     public class HomePageDataScrapper
     {
-        public List<EUR> BestCryptoList { get; set; }
+        public List<USD> BestCryptoList { get; set; }
 
         public HomePageDataScrapper()
         {
-            BestCryptoList = new List<EUR>();
+            BestCryptoList = new List<USD>();
         }
 
         public async Task scrapDataFunction()
         {
-            string url_best_10_cryptos = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=EUR";
+            string url_best_10_cryptos = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
 
             using (var web1 = new HttpClient())
@@ -31,12 +31,12 @@ namespace CryptoCompare_Project
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var a = response.Content.ReadAsStringAsync().Result;
-                    var result = JsonConvert.DeserializeObject<BestCryptoData>(a);
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<BestCryptoData>(jsonString);
                     for (int i = 0; i< result.Data.Count; i++)
                     {
-                        EUR eur = result.Data[i].RAW.EUR;
-                        BestCryptoList.Add(eur);
+                        USD usd = result.Data[i].RAW.USD;
+                        BestCryptoList.Add(usd);
                     }
                 }
             }

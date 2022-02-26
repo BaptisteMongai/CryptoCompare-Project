@@ -122,7 +122,15 @@ namespace CryptoCompare_Project.Views
 
             WpfPlot1.Plot.Clear();
             WpfPlot1.Plot.Title("Rate evolution");
-            WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Red, markerSize: 0);
+            if (rate[rate.Length - 1] - rate[rate.Length - 2] > 0)
+            {
+                WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Lime, markerSize: 0);
+            }
+            else
+            {
+                WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Red, markerSize: 0);
+            }
+            
             WpfPlot1.Plot.XAxis.DateTimeFormat(true);
             WpfPlot1.Plot.XLabel("Time (" + Period.Text + ")");
             WpfPlot1.Plot.YLabel(Crypto1.Text+" / "+Crypto2.Text);
