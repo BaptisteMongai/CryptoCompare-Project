@@ -122,6 +122,12 @@
         <Compile Include="Views\HomePageViewModel.cs">
           <DependentUpon>HomePage.xaml</DependentUpon>
         </Compile>
+        <Compile Include="Views\Notifications.xaml.cs">
+          <DependentUpon>Notifications.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\NotificationsViewModel.cs">
+          <DependentUpon>Notifications.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Views\Variations.xaml.cs">
           <DependentUpon>Variations.xaml</DependentUpon>
         </Compile>
@@ -141,6 +147,7 @@
         </Compile>
         <Page Include="Views\CryptoRates.xaml" />
         <Page Include="Views\HomePage.xaml" />
+        <Page Include="Views\Notifications.xaml" />
         <Page Include="Views\Variations.xaml" />
     </ItemGroup>
     <ItemGroup>

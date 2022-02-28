@@ -38,3 +38,5 @@ C:\Users\theot\OneDrive\Bureau\Semestre 9\Trading C#\Projet\CryptoCompare-Projec
 C:\Users\theot\OneDrive\Bureau\Semestre 9\Trading C#\Projet\CryptoCompare-Project\CryptoCompare-Project\bin\Debug\System.ValueTuple.xml
 C:\Users\theot\OneDrive\Bureau\Semestre 9\Trading C#\Projet\CryptoCompare-Project\CryptoCompare-Project\obj\Debug\Views\Variations.g.cs
 C:\Users\theot\OneDrive\Bureau\Semestre 9\Trading C#\Projet\CryptoCompare-Project\CryptoCompare-Project\obj\Debug\Views\Variations.baml
+C:\Users\theot\OneDrive\Bureau\Semestre 9\Trading C#\Projet\CryptoCompare-Project\CryptoCompare-Project\obj\Debug\Views\Notifications.g.cs
+C:\Users\theot\OneDrive\Bureau\Semestre 9\Trading C#\Projet\CryptoCompare-Project\CryptoCompare-Project\obj\Debug\Views\Notifications.baml
