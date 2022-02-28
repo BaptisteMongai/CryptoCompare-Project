@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -10,34 +11,33 @@ namespace CryptoCompare_Project
 {
     public class HomePageDataScrapper
     {
-        public List<EUR> BestCryptoList { get; set; }
+        public List<USD> BestCryptoList { get; set; }
 
         public HomePageDataScrapper()
         {
-            BestCryptoList = new List<EUR>();
+            BestCryptoList = new List<USD>();
         }
 
-        public void scrapDataFunction(DataGrid cryptoInfo1)
+        public async Task scrapDataFunction()
         {
-            string url_best_10_cryptos = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=EUR";
+            string url_best_10_cryptos = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
 
-            using (var web = new HttpClient())
+            using (var web1 = new HttpClient())
             {
-                web.DefaultRequestHeaders.Add("Apikey", key);
+                web1.DefaultRequestHeaders.Add("Apikey", key);
 
-                var response = web.GetAsync(url_best_10_cryptos).Result;
+                var response = web1.GetAsync(url_best_10_cryptos).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var a = response.Content.ReadAsStringAsync().Result;
-                    var result = JsonConvert.DeserializeObject<BestCryptoData>(a);
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<BestCryptoData>(jsonString);
                     for (int i = 0; i< result.Data.Count; i++)
                     {
-                        EUR eur = result.Data[i].RAW.EUR;
-                        BestCryptoList.Add(eur);
+                        USD usd = result.Data[i].RAW.USD;
+                        BestCryptoList.Add(usd);
                     }
-                    cryptoInfo1.ItemsSource = from element in BestCryptoList select new {element.FROMSYMBOL, element.PRICE, element.HIGHDAY, element.LOWDAY, element.LASTVOLUME};
                 }
             }
         }
@@ -46,58 +46,77 @@ namespace CryptoCompare_Project
     public class CryptoRatesDataScrapper
     {
         public List<double> crypto1ClosePrices { get; set; }
+        public List<DateTime> crypto1Dates { get; set; }
         public List<double> crypto2ClosePrices { get; set; }
-
+        public List<DateTime> crypto2Dates { get; set; }
+        
         public CryptoRatesDataScrapper()
         {
             crypto1ClosePrices = new List<double>();
+            crypto1Dates = new List<DateTime>();
             crypto2ClosePrices = new List<double>();
+            crypto2Dates = new List<DateTime>();
+            
         }
         
-        public void scrapDataCrypto1Function(string cryptoLink)
+        public async Task ScrapDataCrypto1Function(string cryptoLink)
         {
+            crypto1ClosePrices = new List<double>();
+            crypto1Dates = new List<DateTime>();
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
             
-            using (var web = new HttpClient())
+            using (var web2 = new HttpClient())
             {
-                web.DefaultRequestHeaders.Add("Apikey", key);
+                web2.DefaultRequestHeaders.Add("Apikey", key);
+                var response = web2.GetAsync(cryptoLink).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+                    
+                    var result = JsonConvert.DeserializeObject<CryptoHistDataRoot>(jsonString);
+                    for (int i = 0; i < result.Data.Data.Count; i++)
+                    {
+                        crypto1ClosePrices.Add(result.Data.Data[i].close);
+                        var dateTime = ConvertFromUnixTimestamp(result.Data.Data[i].time);
+                        crypto1Dates.Add(dateTime);
+                    }
+                }
+            }
+        }
 
-                var response = web.GetAsync(cryptoLink).Result;
+        public async Task ScrapDataCrypto2Function(string cryptoLink)
+        {
+            crypto2ClosePrices = new List<double>();
+            crypto2Dates = new List<DateTime>();
+            string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
 
+            using (var web3 = new HttpClient())
+            {
+                web3.DefaultRequestHeaders.Add("Apikey", key);
+                var response = web3.GetAsync(cryptoLink).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = response.Content.ReadAsStringAsync().Result;
                     var result = JsonConvert.DeserializeObject<CryptoHistDataRoot>(jsonString);
                     for (int i = 0; i < result.Data.Data.Count; i++)
                     {
-                        var closePrice = result.Data.Data[i].close;
-                        crypto1ClosePrices.Add(closePrice);
+                        crypto2ClosePrices.Add(result.Data.Data[i].close);
+                        var dateTime = ConvertFromUnixTimestamp(result.Data.Data[i].time);
+                        crypto2Dates.Add(dateTime);
                     }
                 }
             }
         }
         
-        public void scrapDataCrypto2Function(string cryptoLink)
+        static DateTime ConvertFromUnixTimestamp(int timestamp)
         {
-            string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
-            
-            using (var web = new HttpClient())
-            {
-                web.DefaultRequestHeaders.Add("Apikey", key);
+            // Format our new DateTime object to start at the UNIX Epoch
+            System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
-                var response = web.GetAsync(cryptoLink).Result;
+            // Add the timestamp (number of seconds since the Epoch) to be converted
+            dateTime = dateTime.AddSeconds(timestamp);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonString = response.Content.ReadAsStringAsync().Result;
-                    var result = JsonConvert.DeserializeObject<CryptoHistDataRoot>(jsonString);
-                    for (int i = 0; i < result.Data.Data.Count; i++)
-                    {
-                        var closePrice = result.Data.Data[i].close;
-                        crypto2ClosePrices.Add(closePrice);
-                    }
-                }
-            }
+            return dateTime;
         }
     }
     
@@ -106,8 +125,9 @@ namespace CryptoCompare_Project
     {
         public double crypto1CurrentPrice { get; set; }
         public double crypto2CurrentPrice { get; set; }
-        public double crypto1OpenPrice { get; set; } 
+        public double crypto1OpenPrice { get; set; }
         public double crypto2OpenPrice { get; set; }
+
         public async Task scrappingCrypto1CurrentPrice(string cryptoLink)
         {
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
@@ -126,6 +146,7 @@ namespace CryptoCompare_Project
                 }
             }
         }
+
         public async Task scrappingCrypto2CurrentPrice(string cryptoLink)
         {
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
@@ -144,7 +165,7 @@ namespace CryptoCompare_Project
                 }
             }
         }
-        
+
         public async Task scrappingCrypto1InitialPrice(string cryptoLink)
         {
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
@@ -159,7 +180,7 @@ namespace CryptoCompare_Project
                 {
                     var jsonString = response.Content.ReadAsStringAsync().Result;
                     var result = JsonConvert.DeserializeObject<CryptoHistDataRoot>(jsonString);
-                    
+
                     List<double> listOpen = new List<double>();
                     for (int i = 0; i < result.Data.Data.Count; i++)
                     {
@@ -171,7 +192,7 @@ namespace CryptoCompare_Project
                 }
             }
         }
-        
+
         public async Task scrappingCrypto2InitialPrice(string cryptoLink)
         {
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
@@ -186,7 +207,7 @@ namespace CryptoCompare_Project
                 {
                     var jsonString = response.Content.ReadAsStringAsync().Result;
                     var result = JsonConvert.DeserializeObject<CryptoHistDataRoot>(jsonString);
-                    
+
                     List<double> listOpen = new List<double>();
                     for (int i = 0; i < result.Data.Data.Count; i++)
                     {

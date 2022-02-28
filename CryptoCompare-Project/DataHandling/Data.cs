@@ -43,7 +43,7 @@ using System.Collections.Generic;
         public string DocumentType { get; set; }
     }
 
-    public class EUR
+    public class USD
     {
         public string TYPE { get; set; }
         public string MARKET { get; set; }
@@ -96,12 +96,12 @@ using System.Collections.Generic;
 
     public class RAW
     {
-        public EUR EUR { get; set; }
+        public USD USD { get; set; }
     }
 
     public class DISPLAY
     {
-        public EUR EUR { get; set; }
+        public USD USD { get; set; }
     }
 
     public class Datum
@@ -163,6 +163,3 @@ public class CurrentPriceUSD
 {
     public double USD { get; set; }
 }
-
-
-

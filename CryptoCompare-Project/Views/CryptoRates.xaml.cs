@@ -1,178 +1,187 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
-using System.Windows;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Legends;
-using ScottPlot;
-using ScottPlot.Plottable;
 using Color = System.Drawing.Color;
 
-namespace CryptoCompare_Project
+namespace CryptoCompare_Project.Views
 {
     public partial class CryptoRates : UserControl
     {
-        
-        private CryptoRatesDataScrapper _crDataScrapper;
-        private string crypto1Link;
-        private string crypto2Link;
-        
-        
+        private readonly CryptoRatesDataScrapper _crDataScrapper;
+        private string _crypto1Link;
+        private string _crypto2Link;
+        //private Semaphore sem = new Semaphore(1, 1);
+
         public CryptoRates()
         {
             InitializeComponent();
             _crDataScrapper = new CryptoRatesDataScrapper();
-            crypto1Link = "";
-            crypto2Link = "";
-            //GetHistoricalData();
-            //DrawRates();
+            _crypto1Link = "";
+            _crypto2Link = "";
+            Crypto1.SelectedIndex = 1;
+            Crypto2.SelectedIndex = 1;
+            
+            Thread updateDataThread = new Thread(UpdateData);
+            Thread updatePlotThread = new Thread(UpdatePlot);
+            updateDataThread.Start();
+            updatePlotThread.Start();
+            
         }
-
-        public void GetHistoricalData()
+        
+        private async Task GetHistoricalData()
         {
+            //sem.WaitOne();
             var crypto1 = Crypto1.Text;
             var crypto2 = Crypto2.Text;
             var period = Period.Text;
-            var currency = Currency.Text;
+            if (crypto1 == "")
+            {
+                crypto1 = "BTC";
+            }
+            if (crypto2 == "")
+            {
+                crypto2 = "ETH";
+            }
+            if (period == "")
+            {
+                period = "Daily";
+            }
+            
             int limit = 0;
-
+           
             switch (period)
             {
                 case "Daily":
                     limit = 1440;
-                    crypto1Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym="+crypto1+"&tsym="+currency+"&limit="+limit;
-                    crypto2Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym="+crypto2+"&tsym="+currency+"&limit="+limit;
+                    _crypto1Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym="+crypto1+"&tsym=EUR&limit="+limit;
+                    _crypto2Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym="+crypto2+"&tsym=EUR&limit="+limit;
                     break;
                 case "Weekly":
                     limit = 168;
-                    crypto1Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym="+crypto1+"&tsym="+currency+"&limit="+limit;
-                    crypto2Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym="+crypto2+"&tsym="+currency+"&limit="+limit;
+                    _crypto1Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym="+crypto1+"&tsym=EUR&limit="+limit;
+                    _crypto2Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym="+crypto2+"&tsym=EUR&limit="+limit;
                     break;
                 case "Monthly":
-                    limit = 30;
-                    crypto1Link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym="+crypto1+"&tsym="+currency+"&limit="+limit;
-                    crypto2Link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym="+crypto2+"&tsym="+currency+"&limit="+limit;
+                    limit = 720;
+                    _crypto1Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym="+crypto1+"&tsym=EUR&limit="+limit;
+                    _crypto2Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym="+crypto2+"&tsym=EUR&limit="+limit;
                     break;
                 case "Yearly":
                     limit = 364;
-                    crypto1Link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym="+crypto1+"&tsym="+currency+"&limit="+limit;
-                    crypto2Link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym="+crypto2+"&tsym="+currency+"&limit="+limit;
+                    _crypto1Link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym="+crypto1+"&tsym=EUR&limit="+limit;
+                    _crypto2Link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym="+crypto2+"&tsym=EUR&limit="+limit;
                     break;
                 default:
+                    //A FAIRE
                     break;
             }
+
+            //sem.Release();
         }
-        /*
-        public void DrawRates()
+
+        private void UpdateData()
         {
-            double[] rate = new double[_crDataScrapper.crypto1ClosePrices.Count];
-            double[] axis = new double[_crDataScrapper.crypto1ClosePrices.Count];
-            for (int valueIndex = 0; valueIndex < _crDataScrapper.crypto1ClosePrices.Count; valueIndex++)
+            while (true)
             {
-                rate[valueIndex] = _crDataScrapper.crypto1ClosePrices[valueIndex] /
-                                   _crDataScrapper.crypto2ClosePrices[valueIndex];
-                axis[valueIndex] = valueIndex;
+                this.Dispatcher.BeginInvoke(new Action(async () =>
+                {
+                    //sem.WaitOne();
+                    await GetHistoricalData();
+                    await _crDataScrapper.ScrapDataCrypto1Function(_crypto1Link);
+                    await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
+                    //sem.Release();
+                }));
+                Thread.Sleep(TimeSpan.FromSeconds(12));
             }
-            WpfPlot1.Plot.Width = 400;
-            WpfPlot1.Plot.Height = 400;
-            WpfPlot1.Plot.Title("Rate evolution");
-            //WpfPlot1.Plot.AddSignal(rate, rate.Length);
-            WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Red, markerSize: 0);
-            WpfPlot1.Plot.XLabel("Horizontal Axis");
-            WpfPlot1.Plot.YLabel("Vertical Axis");
-            WpfPlot1.Refresh();
         }
-        */
         
-        private void Draw_Rate_Click(object sender, RoutedEventArgs e)
+        private void UpdatePlot()
         {
+            while (true)
+            {
+                this.Dispatcher.BeginInvoke(new Action( async () =>
+                {
+                    plotingFunction();
+                }));
+                Thread.Sleep(TimeSpan.FromSeconds(12));
+            }
+        }
 
-            GetHistoricalData();
-            _crDataScrapper.scrapDataCrypto1Function(crypto1Link);
-            _crDataScrapper.scrapDataCrypto2Function(crypto2Link);
-            double[] crypto1 = new double[_crDataScrapper.crypto1ClosePrices.Count];
-            double[] crypto2 = new double[_crDataScrapper.crypto2ClosePrices.Count];
-            double[] rate = new double[_crDataScrapper.crypto2ClosePrices.Count];
-            double[] axis = new double[_crDataScrapper.crypto1ClosePrices.Count];
+        private void plotingFunction()
+        {
+            //sem.WaitOne();
+            double[] rate = new double[_crDataScrapper.crypto1ClosePrices.Count];
             for (int valueIndex = 0; valueIndex < _crDataScrapper.crypto1ClosePrices.Count; valueIndex++)
             {
                 rate[valueIndex] = _crDataScrapper.crypto1ClosePrices[valueIndex] /
                                    _crDataScrapper.crypto2ClosePrices[valueIndex];
-
-                crypto1[valueIndex] = _crDataScrapper.crypto1ClosePrices[valueIndex];
-                crypto2[valueIndex] = _crDataScrapper.crypto2ClosePrices[valueIndex];
-                axis[valueIndex] = valueIndex;
             }
+            double[] axis = _crDataScrapper.crypto1Dates.Select(x => x.ToOADate()).ToArray();
 
+            WpfPlot1.Plot.Clear();
             WpfPlot1.Plot.Title("Rate evolution");
-            //WpfPlot1.Plot.AddSignal(rate, rate.Length);
-            WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Red, markerSize: 0);
-           // WpfPlot1.Plot.PlotScatter(axis, crypto1, color: Color.Blue, markerSize: 0);
-           //WpfPlot1.Plot.PlotScatter(axis, crypto2, color: Color.Green, markerSize: 0);
-
-            WpfPlot1.Plot.XLabel("Honrizontal Axis");
+            if (rate[rate.Length - 1] - rate[rate.Length - 2] > 0)
+            {
+                WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Lime, markerSize: 0);
+            }
+            else
+            {
+                WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Red, markerSize: 0);
+            }
+            
+            WpfPlot1.Plot.XAxis.DateTimeFormat(true);
+            WpfPlot1.Plot.XLabel("Time (" + Period.Text + ")");
             WpfPlot1.Plot.YLabel(Crypto1.Text+" / "+Crypto2.Text);
             WpfPlot1.Refresh();
-
-        }
-        /*
-        private void Draw_Sin_Click(object sender, RoutedEventArgs e)
-        {
-            _crDataScrapper.scrapDataCrypto1Function(crypto1Link);
-            _crDataScrapper.scrapDataCrypto2Function(crypto2Link);
-            AddChart();
-        }
-        */
-        /*
-        private void AddChart()
-        {
-            polyline = new Polyline {Stroke = Brushes.Black};
-            double[] rate = new double[_crDataScrapper.crypto1ClosePrices.Count];
-            for (int valueIndex = 0; valueIndex < _crDataScrapper.crypto1ClosePrices.Count; valueIndex++)
-            {
-                rate[valueIndex] = _crDataScrapper.crypto1ClosePrices[valueIndex] /
-                                   _crDataScrapper.crypto2ClosePrices[valueIndex];
-                
-            }
-            for(int valueIndex = 0; valueIndex < _crDataScrapper.crypto1ClosePrices.Count; valueIndex++)
-            {
-                var max = rate.Max();
-                var x = ((double)valueIndex/_crDataScrapper.crypto1ClosePrices.Count);
-                var y = (rate[valueIndex]/max);
-                polyline.Points.Add(CorrespondingPoint(new Point(x, y)));
-            }
-
-            canvas.Children.Add(polyline);
-            /*
-            // 2e fonction potentielle
-            polyline = new Polyline
-            {
-                Stroke = Brushes.Blue,
-                StrokeDashArray = new DoubleCollection(new double[] {4, 3})
-            };
-            for (int i = 0; i < 70; i++)
-            {
-                var x = i / 5.0;
-                var y = Math.Cos(x);
-                polyline.Points.Add(CorrespondingPoint(new Point(x, y)));
-            }
-            canvas.Children.Add(polyline);
-            
+            //sem.Release();
         }
         
-        private Point CorrespondingPoint(Point pt)
-        {
-            var result = new Point
-            {
-                X = pt.X*canvas.Width,
-                Y = pt.Y*canvas.Height
-            };
-            return result;
+        
+        //https://stackoverflow.com/questions/16966264/what-event-handler-to-use-for-combobox-item-selected-selected-item-not-necessar
+        private bool crypto1handle = true;
+        private bool crypto2handle = true;
+        private bool periodhandle = true;
+        
+        private void Crypto1_DropDownClosed(object sender, EventArgs e) {
+            if(crypto1handle)HandleCrypto1();
+            crypto1handle = true;
         }
-        */
+        
+        private async void HandleCrypto1() {
+            
+            await GetHistoricalData();
+            await _crDataScrapper.ScrapDataCrypto1Function(_crypto1Link);
+            await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
+            plotingFunction();
+        }
+        
+        private void Crypto2_DropDownClosed(object sender, EventArgs e) {
+            if(crypto2handle)HandleCrypto2();
+            crypto2handle = true;
+        }
+        
+        private async void HandleCrypto2() {
+            
+            await GetHistoricalData();
+            await _crDataScrapper.ScrapDataCrypto1Function(_crypto1Link);
+            await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
+            plotingFunction();
+        }
+
+        private void Period_DropDownClosed(object sender, EventArgs e) {
+            if(periodhandle)HandlePeriod();
+            periodhandle = true;
+        }
+        
+        private async void HandlePeriod() {
+            
+            await GetHistoricalData();
+            await _crDataScrapper.ScrapDataCrypto1Function(_crypto1Link);
+            await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
+            plotingFunction();
+        }
+        
     }
 }

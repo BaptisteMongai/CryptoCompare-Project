@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Windows.Controls;
 
-namespace CryptoCompare_Project
+namespace CryptoCompare_Project.Views
 {
     public partial class HomePage : UserControl
     {
-        List<EUR> cryptoList = new List<EUR>();
         public HomePage()
         {
             InitializeComponent();
-            HomePageDataScrapper HPdataScrapper = new HomePageDataScrapper();
-            HPdataScrapper.scrapDataFunction(CryptoInfo1);
+            HomePageDataScrapper hPdataScrapper = new HomePageDataScrapper();
+            hPdataScrapper.scrapDataFunction().ConfigureAwait(true); ;
+            CryptoInfo1.ItemsSource = from element in hPdataScrapper.BestCryptoList select new {element.FROMSYMBOL, element.PRICE, element.HIGHDAY, element.LOWDAY, element.LASTVOLUME};
         }
     }
 }

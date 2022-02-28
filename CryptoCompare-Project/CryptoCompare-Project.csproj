@@ -125,11 +125,14 @@
         <Compile Include="Views\HomePageViewModel.cs">
           <DependentUpon>HomePage.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Views\Portfolio.xaml.cs">
-          <DependentUpon>Portfolio.xaml</DependentUpon>
+        <Compile Include="Views\Notifications.xaml.cs">
+          <DependentUpon>Notifications.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Views\PortfolioViewModel.cs">
-          <DependentUpon>Portfolio.xaml</DependentUpon>
+        <Compile Include="Views\Variation.xaml.cs">
+          <DependentUpon>Variation.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\VariationViewModel.cs">
+          <DependentUpon>Variation.xaml</DependentUpon>
         </Compile>
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
@@ -141,7 +144,8 @@
         </Compile>
         <Page Include="Views\CryptoRates.xaml" />
         <Page Include="Views\HomePage.xaml" />
-        <Page Include="Views\Portfolio.xaml" />
+        <Page Include="Views\Notifications.xaml" />
+        <Page Include="Views\Variation.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">
