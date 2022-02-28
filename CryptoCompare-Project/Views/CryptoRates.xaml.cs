@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using CryptoCompare;
 using Color = System.Drawing.Color;
 
 namespace CryptoCompare_Project.Views
@@ -12,6 +13,8 @@ namespace CryptoCompare_Project.Views
         private readonly CryptoRatesDataScrapper _crDataScrapper;
         private string _crypto1Link;
         private string _crypto2Link;
+
+        private Boolean _isNotRate = true;
         //private Semaphore sem = new Semaphore(1, 1);
 
         public CryptoRates()
@@ -22,6 +25,7 @@ namespace CryptoCompare_Project.Views
             _crypto2Link = "";
             Crypto1.SelectedIndex = 1;
             Crypto2.SelectedIndex = 1;
+            _isNotRate = false;
             
             Thread updateDataThread = new Thread(UpdateData);
             Thread updatePlotThread = new Thread(UpdatePlot);
@@ -47,6 +51,11 @@ namespace CryptoCompare_Project.Views
             if (period == "")
             {
                 period = "Daily";
+            }
+
+            if (crypto2 == "USD")
+            {
+                _isNotRate = true;
             }
             
             int limit = 0;
@@ -93,7 +102,7 @@ namespace CryptoCompare_Project.Views
                     await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
                     //sem.Release();
                 }));
-                Thread.Sleep(TimeSpan.FromSeconds(6));
+                Thread.Sleep(TimeSpan.FromSeconds(10));
             }
         }
         
@@ -103,39 +112,62 @@ namespace CryptoCompare_Project.Views
             {
                 this.Dispatcher.BeginInvoke(new Action( async () =>
                 {
-                    plotingFunction();
+                    PlotingFunction();
                 }));
-                Thread.Sleep(TimeSpan.FromSeconds(6));
+                Thread.Sleep(TimeSpan.FromSeconds(10));
             }
         }
 
-        private void plotingFunction()
+        private void PlotingFunction()
         {
-            //sem.WaitOne();
-            double[] rate = new double[_crDataScrapper.crypto1ClosePrices.Count];
-            for (int valueIndex = 0; valueIndex < _crDataScrapper.crypto1ClosePrices.Count; valueIndex++)
+            if (_isNotRate)
             {
-                rate[valueIndex] = _crDataScrapper.crypto1ClosePrices[valueIndex] /
-                                   _crDataScrapper.crypto2ClosePrices[valueIndex];
-            }
-            double[] axis = _crDataScrapper.crypto1Dates.Select(x => x.ToOADate()).ToArray();
-
-            WpfPlot1.Plot.Clear();
-            WpfPlot1.Plot.Title("Rate evolution");
-            if (rate[rate.Length - 1] - rate[rate.Length - 2] > 0)
-            {
-                WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Lime, markerSize: 0);
+                double[] axis = _crDataScrapper.crypto1Dates.Select(x => x.ToOADate()).ToArray();
+                WpfPlot1.Plot.Clear();
+                WpfPlot1.Plot.Title("Rate evolution");
+                if (_crDataScrapper.crypto1ClosePrices[_crDataScrapper.crypto1ClosePrices.Count - 1] - _crDataScrapper.crypto1ClosePrices[_crDataScrapper.crypto1ClosePrices.Count - 2] > 0)
+                {
+                    WpfPlot1.Plot.PlotScatter(axis, _crDataScrapper.crypto1ClosePrices.ToArray(), color: Color.Lime, markerSize: 0);
+                }
+                else
+                {
+                    WpfPlot1.Plot.PlotScatter(axis, _crDataScrapper.crypto1ClosePrices.ToArray(), color: Color.Red, markerSize: 0);
+                }
+            
+                WpfPlot1.Plot.XAxis.DateTimeFormat(true);
+                WpfPlot1.Plot.XLabel("Time (" + Period.Text + ")");
+                WpfPlot1.Plot.YLabel(Crypto1.Text+" / "+Crypto2.Text);
+                WpfPlot1.Refresh();
             }
             else
             {
-                WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Red, markerSize: 0);
+                //sem.WaitOne();
+                double[] rate = new double[_crDataScrapper.crypto1ClosePrices.Count];
+                for (int valueIndex = 0; valueIndex < _crDataScrapper.crypto1ClosePrices.Count; valueIndex++)
+                {
+                    rate[valueIndex] = _crDataScrapper.crypto1ClosePrices[valueIndex] /
+                                       _crDataScrapper.crypto2ClosePrices[valueIndex];
+                }
+
+                double[] axis = _crDataScrapper.crypto1Dates.Select(x => x.ToOADate()).ToArray();
+
+                WpfPlot1.Plot.Clear();
+                WpfPlot1.Plot.Title("Rate evolution");
+                if (rate[rate.Length - 1] - rate[rate.Length - 2] > 0)
+                {
+                    WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Lime, markerSize: 0);
+                }
+                else
+                {
+                    WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Red, markerSize: 0);
+                }
+
+                WpfPlot1.Plot.XAxis.DateTimeFormat(true);
+                WpfPlot1.Plot.XLabel("Time (" + Period.Text + ")");
+                WpfPlot1.Plot.YLabel(Crypto1.Text + " / " + Crypto2.Text);
+                WpfPlot1.Refresh();
+                //sem.Release();
             }
-            
-            WpfPlot1.Plot.XAxis.DateTimeFormat(true);
-            WpfPlot1.Plot.XLabel("Time (" + Period.Text + ")");
-            WpfPlot1.Plot.YLabel(Crypto1.Text+" / "+Crypto2.Text);
-            WpfPlot1.Refresh();
-            //sem.Release();
         }
         
         
@@ -154,7 +186,7 @@ namespace CryptoCompare_Project.Views
             await GetHistoricalData();
             await _crDataScrapper.ScrapDataCrypto1Function(_crypto1Link);
             await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
-            plotingFunction();
+            PlotingFunction();
         }
         
         private void Crypto2_DropDownClosed(object sender, EventArgs e) {
@@ -167,7 +199,7 @@ namespace CryptoCompare_Project.Views
             await GetHistoricalData();
             await _crDataScrapper.ScrapDataCrypto1Function(_crypto1Link);
             await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
-            plotingFunction();
+            PlotingFunction();
         }
 
         private void Period_DropDownClosed(object sender, EventArgs e) {
@@ -180,7 +212,7 @@ namespace CryptoCompare_Project.Views
             await GetHistoricalData();
             await _crDataScrapper.ScrapDataCrypto1Function(_crypto1Link);
             await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
-            plotingFunction();
+            PlotingFunction();
         }
         
     }

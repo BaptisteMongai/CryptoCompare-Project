@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -20,14 +21,14 @@ namespace CryptoCompare_Project
 
         public async Task scrapDataFunction()
         {
-            string url_best_10_cryptos = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
+            string url_best_20_cryptos = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD";
             string key = "0edc1384280b50ac53679b94991868fb11fca894abeaf40290cbe2548199599f";
 
             using (var web1 = new HttpClient())
             {
                 web1.DefaultRequestHeaders.Add("Apikey", key);
 
-                var response = web1.GetAsync(url_best_10_cryptos).Result;
+                var response = web1.GetAsync(url_best_20_cryptos).Result;
 
                 if (response.IsSuccessStatusCode)
                 {

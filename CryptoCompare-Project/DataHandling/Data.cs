@@ -3,6 +3,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CryptoCompare_Project;
+using CryptoCompare_Project.Views;
 
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class MetaData
@@ -164,4 +167,122 @@ public class CurrentPriceUSD
     public double USD { get; set; }
 }
 
+//Notification class
 
+public class Notification
+{
+    private string _currentPriceCrypto1Link;
+    private string _currentPriceCrypto2Link;
+    private string _initialPriceCrypto1Link;
+    private string _initialPriceCrypto2Link;
+    
+    public CryptoDifferencePriceDataScrapper cryptoDifferencePriceDataScrapper { get; set; }
+    public int NotifID { get; set; }
+    public string Crypto1 { get; set; }
+    public string Crypto2 { get; set; }
+    public string Period { get; set; }
+    public double Delta { get; set; }
+    
+    public bool IsDeltaReached { get; set; }
+
+    public Notification(int notifcounter, string crypto1, string crypto2, string period, double delta)
+    {
+        cryptoDifferencePriceDataScrapper = new CryptoDifferencePriceDataScrapper();
+        _currentPriceCrypto1Link = "";
+        _currentPriceCrypto2Link = "";
+        _initialPriceCrypto1Link = "";
+        _initialPriceCrypto2Link = "";
+        Notifications.NotifCounter += 1;
+        NotifID = Notifications.NotifCounter;
+        Crypto1 = crypto1;
+        Crypto2 = crypto2;
+        Period = period;
+        Delta = delta;
+        IsDeltaReached = false;
+        GetHistoricalData();
+    }
+    
+    public void GetHistoricalData()
+        {
+            var date = DateTime.Now;
+            long unixTime = ((DateTimeOffset)date).ToUnixTimeSeconds();
+            string toTs = "";
+
+            _currentPriceCrypto1Link = "https://min-api.cryptocompare.com/data/price?fsym=" + Crypto1 + "&tsyms=USD";
+            _currentPriceCrypto2Link = "https://min-api.cryptocompare.com/data/price?fsym=" + Crypto2 + "&tsyms=USD";
+
+            switch (Period)
+            {
+                case "Today":
+                    _initialPriceCrypto1Link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym=" + Crypto1 + "&tsym=USD&limit=1"; 
+                    _initialPriceCrypto2Link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym=" + Crypto2 + "&tsym=USD&limit=1";
+                    break;
+                
+                case "1 hour":
+                    toTs = (unixTime - 3600).ToString();
+                    _initialPriceCrypto1Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym=" + Crypto1 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    _initialPriceCrypto2Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym=" + Crypto2 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    break;
+                
+                case "24 hours":
+                    toTs = (unixTime - 86400).ToString();
+                    _initialPriceCrypto1Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym=" + Crypto1 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    _initialPriceCrypto2Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym=" + Crypto2 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    break;
+                
+                case "7 days": //7 days - 2 minutes exactly
+                    toTs = (unixTime - 604680).ToString();
+                    _initialPriceCrypto1Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym=" + Crypto1 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    _initialPriceCrypto2Link = "https://min-api.cryptocompare.com/data/v2/histominute?fsym=" + Crypto2 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    break;
+                
+                //En cours
+                case "30 days":
+                    toTs = (unixTime - 2592000).ToString();
+                    _initialPriceCrypto1Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym=" + Crypto1 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    _initialPriceCrypto2Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym=" + Crypto2 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    break;
+
+                case "90 days":
+                    toTs = (unixTime - 7776000).ToString();
+                    _initialPriceCrypto1Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym=" + Crypto1 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    _initialPriceCrypto2Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym=" + Crypto2 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    break;
+
+                case "1 year":
+                    toTs = (unixTime - 31536000).ToString();
+                    _initialPriceCrypto1Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym=" + Crypto1 + "&tsym=USD&limit=1&toTs=" + toTs;
+                    _initialPriceCrypto2Link = "https://min-api.cryptocompare.com/data/v2/histohour?fsym=" + Crypto2 + "&tsym=USD&limit=1&toTs=" + toTs;
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    public async Task CheckDelta()
+    {
+        await cryptoDifferencePriceDataScrapper.scrappingCrypto1CurrentPrice(_currentPriceCrypto1Link);
+        await cryptoDifferencePriceDataScrapper.scrappingCrypto2CurrentPrice(_currentPriceCrypto2Link);
+        await cryptoDifferencePriceDataScrapper.scrappingCrypto1InitialPrice(_initialPriceCrypto1Link);
+        await cryptoDifferencePriceDataScrapper.scrappingCrypto2InitialPrice(_initialPriceCrypto2Link);
+
+        double currentPriceCrypto1 = cryptoDifferencePriceDataScrapper.crypto1CurrentPrice;
+        double currentPriceCrypto2 = cryptoDifferencePriceDataScrapper.crypto2CurrentPrice;
+        double initialPriceCrypto1 = cryptoDifferencePriceDataScrapper.crypto1OpenPrice;
+        double initialPriceCrypto2 = cryptoDifferencePriceDataScrapper.crypto2OpenPrice;
+
+        var crypto1Variation = (currentPriceCrypto1 - initialPriceCrypto1) / initialPriceCrypto1 * 100;
+        var crypto2Variation = (currentPriceCrypto2 - initialPriceCrypto2) / initialPriceCrypto2 * 100;
+        var deltaCrypto1Crypto2 = Math.Abs(crypto1Variation - crypto2Variation);
+
+        if (deltaCrypto1Crypto2 >= Delta)
+        {
+            IsDeltaReached = true;
+        }
+        else
+        {
+            IsDeltaReached = false;
+        }
+    }
+}

@@ -94,6 +94,7 @@
                 <ComboBoxItem Content="DOT"/>
                 <ComboBoxItem Content="DOGE"/>
                 <ComboBoxItem Content="AVAX"/>
+                <ComboBoxItem Content="USD"/>
             </ComboBox>
             <ComboBox Grid.Column="0" x:Name="Period" Height="50" Width="150" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="0" Margin="336.177,389.917,18.823,5.083" Grid.ColumnSpan="2" DropDownClosed="Period_DropDownClosed">
                 <ComboBoxItem Content="Daily"/>
