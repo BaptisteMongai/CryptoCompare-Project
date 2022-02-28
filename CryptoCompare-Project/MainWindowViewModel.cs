@@ -9,16 +9,20 @@ namespace MvvmSwitchViews
         private ICommand _gotoHomePageCommand;
         private ICommand _gotoCryptoRatesCommand;
         private ICommand _gotoVariationsCommand;
+        private ICommand _gotoNotificationsCommand;
+        
         private object _currentView;
         private object _HomePageView;
         private object _CryptoRatesView;
         private object _VariationsView;
+        private object _NotificationsView;
  
         public MainWindowViewModel()
         {
             _HomePageView = new HomePage();
             _CryptoRatesView = new CryptoRates();
             _VariationsView = new Variations();
+            _NotificationsView = new Notifications();
  
             CurrentView = _HomePageView;
         }
@@ -47,14 +51,26 @@ namespace MvvmSwitchViews
             }
         }
         
-        public ICommand GotoPortfolioCommand
+        public ICommand GotoVariationsCommand
         {
             get
             {
                 return _gotoVariationsCommand ?? (_gotoVariationsCommand = new RelayCommand(
                     x =>
                     {
-                        GotoPortfolioView();
+                        GotoVariationsView();
+                    }));
+            }
+        }
+        
+        public ICommand GotoNotificationsCommand
+        {
+            get
+            {
+                return _gotoNotificationsCommand ?? (_gotoNotificationsCommand = new RelayCommand(
+                    x =>
+                    {
+                        GotoNotificationsView();
                     }));
             }
         }
@@ -79,9 +95,14 @@ namespace MvvmSwitchViews
             CurrentView =  _CryptoRatesView;
         }
         
-        private void GotoPortfolioView()
+        private void GotoVariationsView()
         {
             CurrentView =  _VariationsView;
+        }
+        
+        private void GotoNotificationsView()
+        {
+            CurrentView =  _NotificationsView;
         }
     }
 }

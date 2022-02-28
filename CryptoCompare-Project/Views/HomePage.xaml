@@ -26,16 +26,23 @@
             <Button
                     Content="Variations"
                     Foreground="Beige"
-                    Command="{Binding GotoPortfolioCommand}"          
+                    Command="{Binding GotoVariationsCommand}"          
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655"/>
+            <Button
+                Content="Notifications"
+                Foreground="Beige"
+                Command="{Binding GotoNotificationsCommand}"          
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655"/>
         </StackPanel>
         <StackPanel Height="100" Canvas.Top="2" Width="900" Background="#FF353F4E" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="24" FontFamily="Impact" Margin="394.833,0,394.197,0" VerticalAlignment="Center" Width="110.97" Foreground="Beige"/>
             <Label Content="Homepage" HorizontalAlignment="Center" FontSize="16" Margin="401.833,0,402.197,0" Width="95.97" FontWeight="Bold" Foreground="Beige"/>
         </StackPanel>
-        <DataGrid Name="CryptoInfo1" ScrollViewer.CanContentScroll="True" 
+        <DataGrid Name="CryptoInfo1" ScrollViewer.CanContentScroll="True" IsReadOnly="True" 
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           AutoGenerateColumns="False" Canvas.Left="208.665" Canvas.Top="109.464" Background="#FF889DC8" Height="470" Width="484.256" Foreground="#FF3469D5" >
             <DataGrid.Columns>

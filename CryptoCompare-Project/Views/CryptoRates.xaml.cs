@@ -93,7 +93,7 @@ namespace CryptoCompare_Project.Views
                     await _crDataScrapper.ScrapDataCrypto2Function(_crypto2Link);
                     //sem.Release();
                 }));
-                Thread.Sleep(TimeSpan.FromSeconds(12));
+                Thread.Sleep(TimeSpan.FromSeconds(6));
             }
         }
         
@@ -105,7 +105,7 @@ namespace CryptoCompare_Project.Views
                 {
                     plotingFunction();
                 }));
-                Thread.Sleep(TimeSpan.FromSeconds(12));
+                Thread.Sleep(TimeSpan.FromSeconds(6));
             }
         }
 
@@ -124,7 +124,7 @@ namespace CryptoCompare_Project.Views
             WpfPlot1.Plot.Title("Rate evolution");
             if (rate[rate.Length - 1] - rate[rate.Length - 2] > 0)
             {
-                WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.Lime, markerSize: 0);
+                WpfPlot1.Plot.PlotScatter(axis, rate, color: Color.LimeGreen, markerSize: 0);
             }
             else
             {

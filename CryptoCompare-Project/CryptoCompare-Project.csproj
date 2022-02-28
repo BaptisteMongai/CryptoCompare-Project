@@ -128,6 +128,9 @@
         <Compile Include="Views\Notifications.xaml.cs">
           <DependentUpon>Notifications.xaml</DependentUpon>
         </Compile>
+        <Compile Include="Views\NotificationsViewModel.cs">
+          <DependentUpon>Notifications.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Views\Variation.xaml.cs">
           <DependentUpon>Variation.xaml</DependentUpon>
         </Compile>

@@ -26,12 +26,17 @@
             <Button
                     Content="Variations"
                     Foreground="Beige"
-                    Command="{Binding GotoPortfolioCommand}"          
+                    Command="{Binding GotoVariationsCommand}"          
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655"/>
-            
-
+            <Button
+                Content="Notifications"
+                Foreground="Beige"
+                Command="{Binding GotoNotificationsCommand}"          
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="170" Height="40" Background="#FF353F4E" BorderBrush="#FF273655"/>
         </StackPanel>
         <StackPanel Height="100" Canvas.Top="2" Width="900" Background="#FF353F4E" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="myCrypto" HorizontalAlignment="Center" FontSize="24" FontFamily="Impact" Margin="394.833,0,394.197,0" VerticalAlignment="Center" Width="110.97" Foreground="Beige"/>
@@ -107,7 +112,7 @@
                 Delta
             </TextBox>
 
-            <TextBox Grid.Column="2" Grid.Row="1" Name="Delta" Height="50" Width="150" FontSize="20" IsReadOnly="True" />
+            <TextBox Grid.Column="2" Grid.Row="1" Name="Delta" Height="50" Width="150" FontSize="20"/>
 
             <Button Grid.Column="2" Grid.Row="2" Margin="0,20,0,0" Name="Add" Content="Add" Height="50" Width="150" FontSize="20" Click="Calcul_OnClick" />
 
@@ -133,7 +138,7 @@
                     Notifications
                 </TextBox>
 
-                <TextBox Grid.Column="0" Name="N1C1" Grid.Row="1" Height="30" Width="110" FontSize="20" IsReadOnly="True"/>
+                <TextBox Grid.Column="0" Name="N1C1" Grid.Row="1" Height="30" Width="110" FontSize="20" IsReadOnly="True" />
                 <TextBox Grid.Column="0" Name="N2C1" Grid.Row="2" Height="30" Width="110" FontSize="20" IsReadOnly="True"/>
                 <TextBox Grid.Column="0" Name="N3C1" Grid.Row="3" Height="30" Width="110" FontSize="20" IsReadOnly="True"/>
                 
@@ -148,8 +153,6 @@
                 <TextBox Grid.Column="3" Name="N1Time" Grid.Row="1" Height="30" Width="110" FontSize="20" IsReadOnly="True"/>
                 <TextBox Grid.Column="3" Name="N2Time" Grid.Row="2" Height="30" Width="110" FontSize="20" IsReadOnly="True"/>
                 <TextBox Grid.Column="3" Name="N3Time" Grid.Row="3" Height="30" Width="110" FontSize="20" IsReadOnly="True"/>
-
-
             </Grid>
     </Canvas>
 </UserControl>

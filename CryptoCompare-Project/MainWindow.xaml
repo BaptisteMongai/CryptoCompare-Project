@@ -19,6 +19,9 @@
         <DataTemplate DataType="{x:Type views:Variations}">
             <views:Variations/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type views:Notifications}">
+            <views:Notifications/>
+        </DataTemplate>
     </Window.Resources>
  
     <Window.DataContext>
